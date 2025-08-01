@@ -25,4 +25,13 @@ return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
         response.setData(null);
         return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
     }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<APIResponse> ResourceNotFoundException(BadRequestException ex){
+        APIResponse response=new APIResponse();
+        response.setMessage(ex.getMessage());
+        response.setHttpStatus(HttpStatus.NOT_FOUND.value());
+        response.setData(null);
+        return new ResponseEntity<>(response,HttpStatus.NOT_FOUND);
+    }
 }
