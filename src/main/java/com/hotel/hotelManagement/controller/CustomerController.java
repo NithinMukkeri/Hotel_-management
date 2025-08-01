@@ -1,5 +1,6 @@
 package com.hotel.hotelManagement.controller;
 
+import com.hotel.hotelManagement.iService.ICustomerService;
 import com.hotel.hotelManagement.serviceImpl.CustomerServiceImpl;
 import com.hotel.hotelManagement.dto.CustomerDto;
 import com.hotel.hotelManagement.response.APIResponse;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/customer")
 public class CustomerController {
     @Autowired
-private CustomerServiceImpl customerService;
+private ICustomerService customerService;
 
     @GetMapping("/all")
     public ResponseEntity<APIResponse> getAllCustomers() {
