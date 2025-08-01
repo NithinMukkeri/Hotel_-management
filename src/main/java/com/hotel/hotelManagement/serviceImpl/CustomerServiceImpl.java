@@ -62,7 +62,7 @@ CustomerDto dto=new CustomerDto();
 try{
    Customer customer;
    boolean isUpdate=false;
-   if(customerDto.getId()!=0 & customerRepository.existsById(customerDto.getId())){
+   if(customerDto.getId() != null && customerDto.getId() != 0  && customerRepository.existsById(customerDto.getId())){
 customer=customerRepository.getReferenceById(customerDto.getId());
     BeanUtils.copyProperties(customerDto,customer);
     isUpdate=true;
@@ -75,7 +75,7 @@ Customer savedCustomer=customerRepository.save(customer);
 
 response.setHttpStatus(HttpStatus.OK.value());
 response.setStatus("ok");
-response.setStatus(isUpdate?"User updated successfully" : "User created successfully");
+response.setStatus(isUpdate?"Customer updated successfully" : "Customer created successfully");
 response.setData(savedCustomer);
 return  response;
 }catch (Exception e){
@@ -91,11 +91,11 @@ return response;
         APIResponse response= new APIResponse();
         Optional<Customer> customer= customerRepository.findById(id);
         if(customer.isEmpty()){
-            throw new UserNotFoundException("User with ID " + id + " not found.");
+            throw new UserNotFoundException("Customer with ID " + id + " not found.");
         }
-
+     //customerRepository.deleteById(id);
         customerRepository.deleteById(id);
-        response.setMessage("User deleted successfully");
+        response.setMessage("Customer deleted successfully");
         response.setHttpStatus(HttpStatus.OK.value());
         response.setData(null);
         return response;
