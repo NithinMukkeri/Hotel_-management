@@ -1,14 +1,13 @@
 package com.hotel.hotelManagement.dto;
 
+import com.hotel.hotelManagement.enums.RoomStatus;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @NoArgsConstructor
 @Builder
+
 @AllArgsConstructor
 public class RoomDto {
     private Long id;
@@ -23,7 +22,7 @@ public class RoomDto {
     private String roomInfo;
 
     @NotNull(message = "Status is required")
-    private String status;
+    private RoomStatus roomStatus;
 
     @NotNull(message = "Room number is required")
     private int roomNumber;

@@ -2,9 +2,11 @@ package com.hotel.hotelManagement.iService;
 
 import com.hotel.hotelManagement.dto.RoomDto;
 import com.hotel.hotelManagement.response.APIResponse;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public interface IRoomService {
     APIResponse getAllRooms();
 

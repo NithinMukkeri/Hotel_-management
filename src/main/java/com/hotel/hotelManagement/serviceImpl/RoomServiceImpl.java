@@ -9,10 +9,11 @@ import com.hotel.hotelManagement.repository.RoomRepo;
 import com.hotel.hotelManagement.response.APIResponse;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+@Service
 public class RoomServiceImpl implements IRoomService {
     @Autowired
     RoomRepo roomRepository;
@@ -39,19 +40,19 @@ public class RoomServiceImpl implements IRoomService {
 
     @Override
     public APIResponse createRoom(RoomDto roomDto) {
-        if (roomDto.getId() != null) {
-            throw new BadRequestException("Id should be null when creating a new room");
-        }
+
         if (roomRepository.findByRoomNumber(roomDto.getRoomNumber()) != null) {
             throw new BadRequestException("Room with room number " + roomDto.getRoomNumber() + " already exists");
         }
-        Room room=new Room();
-        BeanUtils.copyProperties(roomDto,room);
-        Room room1=roomRepository.save(room);
-        APIResponse response=new APIResponse();
-        response.setMessage("Room created successfully");
-        response.setData(room1);
-        return response;
+        try {
+            Room room = new Room();
+            BeanUtils.copyProperties(roomDto, room);
+            room = roomRepository.save(room);
+            return new APIResponse("ok",200,"Room created successfully", room);
+        } catch (Exception ex) {
+
+            throw new RuntimeException("Error while creating room: " + ex.getMessage());
+        }
     }
 
     @Override
